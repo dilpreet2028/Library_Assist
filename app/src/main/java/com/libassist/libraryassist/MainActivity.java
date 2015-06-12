@@ -4,15 +4,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    Database data;
+
+    long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        data= new Database(this);
+        id=data.add("New"); //"new"  ki jagah vo / name aaega jo name of the book he....
+        if(id==-1)
+            Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Added",Toast.LENGTH_SHORT).show();
+        data.display();
+        data.diff();
     }
+
 
 
     @Override
