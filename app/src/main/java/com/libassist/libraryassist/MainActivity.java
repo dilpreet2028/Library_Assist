@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -70,9 +70,9 @@ public class MainActivity extends ActionBarActivity {
         Calendar cal= Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
         cal.set(Calendar.HOUR_OF_DAY,9);
-        cal.set(Calendar.MINUTE,20);
+        cal.set(Calendar.MINUTE,30);
         cal.set(Calendar.AM_PM,Calendar.PM);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),10000,pi);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pi);
 
         ComponentName cn= new ComponentName(this,MainActivity.class);
         PackageManager packageManager=this.getPackageManager();

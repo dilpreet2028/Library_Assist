@@ -23,7 +23,9 @@
         android:background="@drawable/bb"
         android:textColor="@android:color/white"
         android:textSize="25dp"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+
+        />
 
 
 
