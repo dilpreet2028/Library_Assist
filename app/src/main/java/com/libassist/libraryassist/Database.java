@@ -92,17 +92,32 @@ public class Database {
         String all;
         all=ar.toString();
         Toast.makeText(con,all,Toast.LENGTH_LONG).show();
+        Toast.makeText(con,all,Toast.LENGTH_LONG).show();
     }
     public void diff(){
         //to be run with services
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         String doi,dor;
+        ArrayList<String> ar=new ArrayList<>();
+        String name;
+        int count=0;
         SQLiteDatabase sql=dbhelp.getWritableDatabase();
         Cursor cursor= sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
-        while(cursor.moveToNext()){
-            long diff= check(cursor.getString(cursor.getColumnIndex(dbhelp.DOR)));
-            Toast.makeText(con,"Days "+diff,Toast.LENGTH_SHORT).show();
+        while(cursor.moveToNext()) {
+            long diff = check(cursor.getString(cursor.getColumnIndex(dbhelp.DOR)));
+            if (diff <= 1) {
+                count++;
+                ar.add(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
+            }
         }
+
+        String st=ar.toString();
+        Toast.makeText(con,st+" "+count,Toast.LENGTH_SHORT).show();
+        /*if(count==0)
+                return null;
+             else
+                return ar;*/
+
     }
     //for deleting
     public void pos(int pos)//need the pos from the listview...
