@@ -87,7 +87,8 @@ public class Database {
             name=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
             doi=cursor.getString(cursor.getColumnIndex(dbhelp.DOI));
             dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
-            ar.add(name+" "+doi+" "+dor+"\n");
+            ar.add(name+" "+doi+" "+dor+"\n");//need to pass only the book name
+            //rest for displaying three function will send the book ,issue date,retrun date
         }
         String all;
         all=ar.toString();
@@ -110,7 +111,13 @@ public class Database {
                 ar.add(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
             }
         }
-
+        /* if(count>0){
+                1.notiifcation support
+                2.send all the books which are in the array list to the list view
+                    so that it can display the list
+                    (notification will have the pending intent for the list view for the
+                    books to be returned )
+                }*/
         String st=ar.toString();
         Toast.makeText(con,st+" "+count,Toast.LENGTH_SHORT).show();
         /*if(count==0)
@@ -120,7 +127,7 @@ public class Database {
 
     }
     //for deleting
-    public void pos(int pos)//need the pos from the listview...
+    public void posdel(int pos)//need the pos from the listview...
     {
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         SQLiteDatabase sql= dbhelp.getWritableDatabase();
@@ -128,11 +135,33 @@ public class Database {
         cursor.moveToPosition(pos);
         deletebook(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
     }
+
     public void deletebook(String book){
         SQLiteDatabase sqLiteDatabase=dbhelp.getWritableDatabase();
         String[] args={book};
         sqLiteDatabase.delete(dbhelp.TBNAME,dbhelp.BNAME+"=?",args);
     }
+    ////FOR DISPLAYING BOOK NAME,DOI,DOR IN THE INTENT WHICH IS USED BY THE LISTACTIVTY
+    Cursor senddata;
+    public void cursordis(int pos){
+        //linked to the listonclicklistener
+        String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
+        SQLiteDatabase sql= dbhelp.getWritableDatabase();
+        senddata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
+        senddata.moveToPosition(pos);
+    }
+    //LINKED TO THE INTENT TO DISPLAY THE CLICKED ONE
+    public String sendbook(){
+        return senddata.getString(senddata.getColumnIndex(dbhelp.BNAME));
+    }
+    public String senddoi(){
+        return senddata.getString(senddata.getColumnIndex(dbhelp.DOR));
+    }
+    public String senddor(){
+        return senddata.getString(senddata.getColumnIndex(dbhelp.DOI));
+    }
+
+
     static public class DatabaseHp extends SQLiteOpenHelper {
         private static final String TBNAME="BOOKS";
         private static final String BNAME="bname";

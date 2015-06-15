@@ -7,6 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,8 +24,11 @@ public class MainActivity extends ActionBarActivity {
     Intent intent;
     PendingIntent pi;
     long id;
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //actionBar=getActionBar();
+        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#006600")));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         data= new Database(this);
