@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@android:color/darker_gray">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Enter book name"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/text"
+        android:textSize="30dp"
+        android:textColor="@android:color/black"
+        android:textColorHighlight="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:id="@+id/add"
+        android:layout_marginTop="110dp"
+        android:layout_gravity="center_horizontal|top" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/editText"
+        android:layout_marginTop="60dp"
+        android:hint="Enter book name"
+        android:background="@android:color/white"
+        android:layout_gravity="center_horizontal|top" />
+
+</FrameLayout>
