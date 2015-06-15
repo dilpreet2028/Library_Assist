@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@android:color/darker_gray">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:id="@+id/change"
+        android:layout_marginTop="110dp"
+        android:layout_gravity="center_horizontal|top" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/cd"
+        android:layout_marginTop="40dp"
+        android:hint="Number of days to return book"
+        android:background="@android:color/white"
+        android:layout_gravity="center_horizontal|top" />
+
+</FrameLayout>

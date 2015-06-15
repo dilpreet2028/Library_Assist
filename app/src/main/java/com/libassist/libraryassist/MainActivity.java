@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
     PendingIntent pi;
     long id;
     String book;
-    EditText  et;
+    EditText  et,cd;
     ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,31 @@ public class MainActivity extends ActionBarActivity {
 
 
         if (id == R.id.action_settings) {
+            LayoutInflater inflater=getLayoutInflater();
+            View view=inflater.inflate(R.layout.change_date,null);
+            final Dialog dialog=new Dialog(this);
+            dialog.setTitle("Change Date");
+            dialog.setContentView(view);
+            dialog.show();
+            Button add;
+            add=(Button)view.findViewById(R.id.change);
+            cd=(EditText)view.findViewById(R.id.cd);
+            add.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                   String date=cd.getText().toString();
+                    int newdate=Integer.parseInt(date);
+                    if(newdate>0) {
+                        data.changert(newdate);
+                        dialog.dismiss();
+                    }
+                }
+            });
+            return true;
+        }
+        if( id == R.id.action_about){
+            Intent intent=new Intent(this,About.class);
+            startActivity(intent);
             return true;
         }
 
