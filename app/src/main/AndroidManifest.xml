@@ -26,10 +26,17 @@
             </intent-filter>
         </receiver>
 
-
-        <service
-            android:name=".MyService" >
+        <service android:name=".MyService" >
         </service>
+
+        <activity
+            android:name=".list"
+            android:label="@string/title_activity_list" >
+        </activity>
+        <activity
+            android:name=".afterlist"
+            android:label="@string/title_activity_afterlist" >
+        </activity>
     </application>
 
 </manifest>
