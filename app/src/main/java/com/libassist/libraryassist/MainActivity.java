@@ -90,13 +90,18 @@ public class MainActivity extends ActionBarActivity {
 
     }
     public void adddata(String name){
-        id=data.add(name); //"new"  ki jagah vo / name aaega jo name of the book he....
-        if(id==-1)
-            Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this,"Added",Toast.LENGTH_SHORT).show();
-        start();
-        data.display();
+        if(name.length()>0) {
+            id = data.add(name); //"new"  ki jagah vo / name aaega jo name of the book he....
+            if (id == -1)
+                Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
+            start();
+            data.display();
+        }
+        else{
+            Toast.makeText(this,"Please a Book Name",Toast.LENGTH_SHORT).show();
+        }
     }
     public void start(){
 
