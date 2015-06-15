@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
     Intent intent;
     PendingIntent pi;
     long id;
-    Button b1,b2,b3;
+    Button b2,b3;
     Intent i;
     ActionBar actionBar;
     @Override
@@ -45,16 +45,11 @@ public class MainActivity extends ActionBarActivity {
         start();
         data.display();  // data.diff();
 
-        b1=(Button) findViewById(R.id.issue);
+
         b2=(Button) findViewById(R.id.reissue);
         b3=(Button) findViewById(R.id.ret);
 
-            b1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //dialoue box here
-                }
-            });
+
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
