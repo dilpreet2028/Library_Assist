@@ -2,6 +2,7 @@ package com.libassist.libraryassist;
 
 import android.app.ActionBar;
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,9 +12,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -24,6 +28,8 @@ public class MainActivity extends ActionBarActivity {
     Intent intent;
     PendingIntent pi;
     long id;
+    String book;
+    EditText  et;
     ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +40,7 @@ public class MainActivity extends ActionBarActivity {
         data= new Database(this);
         intent=new Intent(this,Broadcast.class);
         pi=PendingIntent.getBroadcast(this,0,intent,0);
-     id=data.add("New"); //"new"  ki jagah vo / name aaega jo name of the book he....
-        if(id==-1)
-            Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this,"Added",Toast.LENGTH_SHORT).show();
-        start();
-        data.display();
+
 
        // data.diff();
     }
@@ -67,6 +67,36 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void issue(View v){
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.my_dialog,null);
+        final Dialog dialog=new Dialog(this);
+        dialog.setTitle("Issue");
+        dialog.setContentView(view);
+        dialog.show();
+        Button add;
+        add=(Button)view.findViewById(R.id.add);
+        et=(EditText)view.findViewById(R.id.editText);
+        add.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                book=et.getText().toString();
+                dialog.dismiss();
+                adddata(book);
+            }
+        });
+
+
+    }
+    public void adddata(String name){
+        id=data.add(name); //"new"  ki jagah vo / name aaega jo name of the book he....
+        if(id==-1)
+            Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Added",Toast.LENGTH_SHORT).show();
+        start();
+        data.display();
     }
     public void start(){
 
