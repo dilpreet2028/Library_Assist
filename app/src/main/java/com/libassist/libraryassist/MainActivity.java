@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ public class MainActivity extends ActionBarActivity {
     Intent intent;
     PendingIntent pi;
     long id;
+    Button b1,b2,b3;
+    Intent i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,39 @@ public class MainActivity extends ActionBarActivity {
         data.display();
 
        // data.diff();
+
+        b1=(Button) findViewById(R.id.issue);
+        b2=(Button) findViewById(R.id.reissue);
+        b3 = (Button) findViewById(R.id.ret);
+
+       b1.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               /*
+               yaha pe issue ka dall
+               dialogue builder walla
+               */
+           }
+       });
+       b2.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+                 Intent i=new Intent(MainActivity.this,reisuereturn.class);
+                 i.putExtra("flag",2);  //flag is used to store value to indicate which button is pressed   2 is used for button2 i.e.reissue
+                  startActivity(i);
+
+           }
+       });
+
+       b3.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent i=new Intent(MainActivity.this,reisuereturn.class);
+               i.putExtra("flag",3);//3 shows return is pressed
+               startActivity(i);
+
+           }
+       });
     }
 
 
