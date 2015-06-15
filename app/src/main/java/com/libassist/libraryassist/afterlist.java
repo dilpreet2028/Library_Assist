@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 public class afterlist extends ActionBarActivity {
 
-        TextView t1,t2,t3;//bname idae rdate
+      //  TextView t1,t2,t3;//bname idae rdate
     Button b1,b2;//return n rissue
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afterlist);
         b1=(Button)findViewById(R.id.butreissue);
-        b2=(Button)findViewById(R.id.butreissue);
+        b2=(Button)findViewById(R.id.butreturn);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override

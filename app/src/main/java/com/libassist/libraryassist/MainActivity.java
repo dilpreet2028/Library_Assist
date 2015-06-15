@@ -26,8 +26,9 @@ public class MainActivity extends ActionBarActivity {
     PendingIntent pi;
     long id;
     Button b2,b3;
-    Intent i;
+
     ActionBar actionBar;
+    //comment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //actionBar=getActionBar();
