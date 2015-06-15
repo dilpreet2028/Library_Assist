@@ -16,6 +16,7 @@ public class Database {
     DatabaseHp dbhelp;
     Context con;
     String pattern="dd-MM-yyyy";
+    int returndate=10;
 
     public Database(Context context){
         dbhelp=new DatabaseHp(context);
@@ -28,7 +29,7 @@ public class Database {
     }
     public String after(String now){
         SimpleDateFormat sdf=new SimpleDateFormat(pattern);
-        int returndate=10;
+
         Calendar c=Calendar.getInstance();
         try {
             c.setTime(sdf.parse(now));
@@ -161,7 +162,11 @@ public class Database {
         return senddata.getString(senddata.getColumnIndex(dbhelp.DOI));
     }
 
-
+    //RETURN DATE
+    public void changert(int newdate){
+        returndate=newdate;
+        Toast.makeText(con,"Date Changed",Toast.LENGTH_SHORT).show();
+    }
     static public class DatabaseHp extends SQLiteOpenHelper {
         private static final String TBNAME="BOOKS";
         private static final String BNAME="bname";
