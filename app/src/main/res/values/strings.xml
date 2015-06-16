@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Library Assist</string>
 
+    <string name="app_name">Library Assist</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Change Book Issue Interval</string>
     <string name="action_about">About</string>
     <string name="title_activity_about">About</string>
+    <string name="title_activity_booklist">booklist</string>
+    <string name="title_activity_thisbook">thisbook</string>
+
 </resources>

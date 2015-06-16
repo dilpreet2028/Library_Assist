@@ -26,6 +26,7 @@ import java.util.Calendar;
 public class MainActivity extends ActionBarActivity {
     Database data;
     Intent intent;
+    Button b1,b2,b3;
     PendingIntent pi;
     long id;
     String book;
@@ -41,8 +42,35 @@ public class MainActivity extends ActionBarActivity {
         intent=new Intent(this,Broadcast.class);
         pi=PendingIntent.getBroadcast(this,0,intent,0);
 
+        b2=(Button) findViewById(R.id.reissue);
+        b3=(Button) findViewById(R.id.ret);
+        b1=(Button) findViewById(R.id.issue);
 
-       // data.diff();
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //issue
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent i=new Intent(MainActivity.this,booklist.class);
+                    startActivity(i);
+
+                }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(MainActivity.this,booklist.class);
+                startActivity(i);
+            }
+        });
+
+        // data.diff();
     }
 
 
