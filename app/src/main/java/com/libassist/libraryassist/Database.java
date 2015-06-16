@@ -1,5 +1,6 @@
 package com.libassist.libraryassist;
 
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -79,7 +80,7 @@ public class Database {
         }
         return days;
     }
-    public void display(){
+    public ArrayList<String> display(){
         String[] colname={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         ArrayList<String> ar=new ArrayList<>();
         String name,dor,doi;
@@ -88,43 +89,47 @@ public class Database {
         Cursor cursor=sqLiteDatabase.query(dbhelp.TBNAME,colname,null,null,null,null,null);
         while(cursor.moveToNext()){
             name=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
-            doi=cursor.getString(cursor.getColumnIndex(dbhelp.DOI));
-            dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
-            ar.add(name+" "+doi+" "+dor+"\n");//need to pass only the book name
+            //doi=cursor.getString(cursor.getColumnIndex(dbhelp.DOI));
+            //dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
+            ar.add(name+"\n");//need to pass only the book name
             //rest for displaying three function will send the book ,issue date,retrun date
         }
-        String all;
-        all=ar.toString();
-        Toast.makeText(con,all,Toast.LENGTH_LONG).show();
+
+        return ar;
 
     }
+    Notify notify;
     public void diff(){
         //to be run with services
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         String doi,dor;
         ArrayList<String> ar=new ArrayList<>();
         String name;
-
+        notify=new Notify();
         int count=0;
         index=0;
         SQLiteDatabase sql=dbhelp.getWritableDatabase();
         Cursor cursor= sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
         while(cursor.moveToNext()) {
             long diff = check(cursor.getString(cursor.getColumnIndex(dbhelp.DOR)));
-            if (diff <= 1) {
+            if (diff <= 1)
+            {
                 count++;
                 ar.add(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
-                bookdis[index]=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
-                index++;
+               // bookdis[index]=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
+               // index++;
             }
         }
-        /* if(count>0){
-                1.notiifcation support
+        if(count>0){
+                  notify.start();
+                  //  getfromdiff(ar);
+               /*  1.notiifcation support
                 2.send all the books which are in the array list to the list view
                     so that it can display the list
                     (notification will have the pending intent for the list view for the
-                    books to be returned )
-                }*/
+                    books to be returned )*/
+                }
+
         String st=ar.toString();
         Toast.makeText(con,st+" "+count,Toast.LENGTH_SHORT).show();
         /*if(count==0)
@@ -133,59 +138,91 @@ public class Database {
                 return ar;*/
 
     }
+     ArrayList<String> diffar;
+    public void getfromdiff(ArrayList<String> arrayList){
+            diffar=new ArrayList<>();
+            diffar=arrayList;
+    }
+    public ArrayList<String> givetolist(){
+        return diffar;
+    }
     //for deleting
-    public void posdel(int pos)//need the pos from the listview...
+  /*  public void posdel(int pos)//need the pos from the listview...
     {
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         SQLiteDatabase sql= dbhelp.getWritableDatabase();
         Cursor cursor=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
         cursor.moveToPosition(pos);
         deletebook(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
-    }
+    }*/
 
     public void deletebook(String book){
         SQLiteDatabase sqLiteDatabase=dbhelp.getWritableDatabase();
         String[] args={book};
         sqLiteDatabase.delete(dbhelp.TBNAME,dbhelp.BNAME+"=?",args);
     }
+
+
     ////FOR DISPLAYING BOOK NAME,DOI,DOR IN THE INTENT WHICH IS USED BY THE LISTACTIVTY BUtFir REISSUE AND RETURN
     Cursor senddata;
+    String bn,di,dr;
     public void cursordis(int pos){
         //linked to the listonclicklistener
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         SQLiteDatabase sql= dbhelp.getWritableDatabase();
         senddata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
         senddata.moveToPosition(pos);
-        sendbook(senddata.getString(senddata.getColumnIndex(dbhelp.BNAME)));
-        senddor(senddata.getString(senddata.getColumnIndex(dbhelp.DOR)));
-        senddoi(senddata.getString(senddata.getColumnIndex(dbhelp.DOI)));
+        bn=senddata.getString(senddata.getColumnIndex(dbhelp.BNAME));
+        di=senddata.getString(senddata.getColumnIndex(dbhelp.DOR));
+        dr=senddata.getString(senddata.getColumnIndex(dbhelp.DOI));
     }
 
     //fOR diPSLAYING LIST OF THE BOOKS TO BE RETURNED
-    String bookname;
-    public void Rcursorpos(int pos){//Gteing the position from the lst item click
-        bookname=bookdis[pos];
-    }
-    Cursor checkdata;
-    public void Rcheck(){
-        String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
+    //String bookname;
+    //public void Rcursorpos(int pos){//Gteing the position from the lst item click
+    //    bookname=bookdis[pos];
+    //}
+
+    public void Rcheck(String buk){
+
+        SQLiteDatabase sqLiteDatabase=dbhelp.getWritableDatabase();
+        String[] colname={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
+        String comp;
+        Cursor cursor=sqLiteDatabase.query(dbhelp.TBNAME,colname,null,null,null,null,null);
+        while(cursor.moveToNext())
+        {
+            comp=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
+             if(buk.compareTo(comp)==0)
+             {
+                deletebook(buk);
+                break;
+             }
+        }
+
+
+
+
+
+       /* Cursor checkdata;
         SQLiteDatabase sql= dbhelp.getWritableDatabase();
         checkdata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
+
         while(checkdata.moveToNext()){
-            if(bookname==checkdata.getString(checkdata.getColumnIndex(dbhelp.BNAME))){
-                sendbook(checkdata.getString(checkdata.getColumnIndex(dbhelp.BNAME)));
-                senddor(checkdata.getString(checkdata.getColumnIndex(dbhelp.DOR)));
-                senddoi(checkdata.getString(checkdata.getColumnIndex(dbhelp.DOI)));
+            Toast.makeText(con,dbhelp.BNAME,Toast.LENGTH_SHORT).show();
+            if(bk==checkdata.getString(checkdata.getColumnIndex(dbhelp.BNAME))){
+
+                Toast.makeText(con,"Rcheck in loop",Toast.LENGTH_SHORT).show();
+                deletebook(bk);
                 break;
             }
 
-        }
+        }*/
     }
 
     //LINKED TO THE INTENT TO DISPLAY THE CLICKED ONE BUtFir REISSUE AND RETURN ALSOOO
-    public static String sendbook(String bname){  return bname;    }
-    public static String senddoi(String doissue){   return doissue;    }
-    public static String senddor(String doreturn){   return doreturn;    }
+    public  String sendbook(){  return bn;    }
+    public String senddoi(){   return di;    }
+    public  String senddor(){   return dr;    }
 
 
     //RETURN DATE

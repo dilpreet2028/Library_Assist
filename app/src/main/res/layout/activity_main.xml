@@ -43,6 +43,7 @@
                 android:textColor="@android:color/white"
                 android:background="@drawable/bb"
                 android:textSize="25dp"
+                android:onClick="reissue"
                 android:layout_weight="1"
                 android:layout_column="19" />
         </TableRow>
@@ -58,6 +59,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="70dp"
                 android:text="Return"
+                android:onClick="returnbook"
                 android:id="@+id/ret"
                 android:layout_margin="50dp"
                 android:textColor="@android:color/white"

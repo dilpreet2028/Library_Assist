@@ -41,6 +41,10 @@
             android:name=".thisbook"
             android:label="@string/title_activity_thisbook" >
         </activity>
+        <activity
+            android:name=".Notify"
+            android:label="@string/title_activity_notify" >
+        </activity>
     </application>
 
 </manifest>
