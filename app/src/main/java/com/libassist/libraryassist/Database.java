@@ -1,11 +1,17 @@
 package com.libassist.libraryassist;
 
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v4.app.NotificationCompat;
+import android.text.Html;
+import android.text.Spanned;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +26,7 @@ public class Database {
     int returndate=10;
     String[] bookdis;
     int index;
+    NotificationManager nm;
 
     public Database(Context context){
         dbhelp=new DatabaseHp(context);
@@ -89,23 +96,25 @@ public class Database {
         Cursor cursor=sqLiteDatabase.query(dbhelp.TBNAME,colname,null,null,null,null,null);
         while(cursor.moveToNext()){
             name=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
+            dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
             //doi=cursor.getString(cursor.getColumnIndex(dbhelp.DOI));
             //dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
-            ar.add(name+"\n");//need to pass only the book name
+           // Spanned text= Html.fromHtml("<strong><h1>"+name+"</h1></strong>"+"<short>Hello</short>");
+            ar.add(name+"\n_______________________________\n\t\t\t\t\t\tReturn Date:"+dor);//need to pass only the book name
             //rest for displaying three function will send the book ,issue date,retrun date
         }
 
         return ar;
 
     }
-    Notify notify;
+
     public void diff(){
         //to be run with services
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         String doi,dor;
         ArrayList<String> ar=new ArrayList<>();
         String name;
-        notify=new Notify();
+
         int count=0;
         index=0;
         SQLiteDatabase sql=dbhelp.getWritableDatabase();
@@ -121,7 +130,7 @@ public class Database {
             }
         }
         if(count>0){
-                  notify.start();
+                  start(ar);
                   //  getfromdiff(ar);
                /*  1.notiifcation support
                 2.send all the books which are in the array list to the list view
@@ -138,14 +147,27 @@ public class Database {
                 return ar;*/
 
     }
-     ArrayList<String> diffar;
+    public void start(ArrayList<String> arr){
+        nm=(NotificationManager)con.getSystemService(con.NOTIFICATION_SERVICE);
+        Intent in= new Intent(con,booklist.class);
+
+        PendingIntent pi= PendingIntent.getActivity(con,0,in,0);
+        NotificationCompat.Builder notify=new NotificationCompat.Builder(con)
+                .setSmallIcon(R.drawable.abc_cab_background_top_material)
+                .setContentTitle("Hello!!")
+                .setContentInfo("You have Books to return ")
+                .setContentIntent(pi)
+                .setDefaults(Notification.DEFAULT_ALL);
+        nm.notify(111,notify.build());
+    }
+     /*ArrayList<String> diffar;
     public void getfromdiff(ArrayList<String> arrayList){
             diffar=new ArrayList<>();
             diffar=arrayList;
     }
     public ArrayList<String> givetolist(){
         return diffar;
-    }
+    }*/
     //for deleting
   /*  public void posdel(int pos)//need the pos from the listview...
     {
@@ -173,8 +195,8 @@ public class Database {
         senddata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
         senddata.moveToPosition(pos);
         bn=senddata.getString(senddata.getColumnIndex(dbhelp.BNAME));
-        di=senddata.getString(senddata.getColumnIndex(dbhelp.DOR));
-        dr=senddata.getString(senddata.getColumnIndex(dbhelp.DOI));
+        di=senddata.getString(senddata.getColumnIndex(dbhelp.DOI));
+        dr=senddata.getString(senddata.getColumnIndex(dbhelp.DOR));
     }
 
     //fOR diPSLAYING LIST OF THE BOOKS TO BE RETURNED

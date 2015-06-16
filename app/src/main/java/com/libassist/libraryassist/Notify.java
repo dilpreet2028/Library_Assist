@@ -13,15 +13,16 @@ import android.view.MenuItem;
 
 public class Notify extends ActionBarActivity {
 NotificationManager nm;
+    booklist bklist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notify);
-        nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
         start();
     }
 
-    public void start() {
+    public void start() {nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         Intent in= new Intent(this,booklist.class);
         PendingIntent pi= PendingIntent.getActivity(this,0,in,0);
         NotificationCompat.Builder notify=new NotificationCompat.Builder(this)

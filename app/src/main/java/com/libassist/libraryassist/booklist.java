@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,17 +27,12 @@ public class booklist extends ActionBarActivity {
         data=new Database(this);
         array=new ArrayList<>();
         list=(ListView)findViewById(R.id.listView);
-        int notfiy=getIntent().getIntExtra("notify", 1);
+
         //for displaying bookname
-        if(notfiy==1)
-            array=data.display();
-        else {
-            try {
-                array = data.givetolist();
-            } catch (Exception e) {
-                array=data.display();
-            }
-        }
+
+            array = data.display();
+           // Toast.makeText(this,"ahhhhhhhhhhh",Toast.LENGTH_SHORT).show();
+
         counter=getIntent().getIntExtra("option",0);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.singlerow,R.id.textView,array);
         list.setAdapter(adapter);
@@ -53,6 +49,13 @@ public class booklist extends ActionBarActivity {
                                             in.putExtra("flag",counter);
                                             //pass any value here
                                             startActivity(in);
+                                            if(counter==1||counter==2){
+
+                                            }
+                                            else{
+                                                finish();
+                                            }
+
 
 
 

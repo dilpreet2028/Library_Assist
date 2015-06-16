@@ -65,6 +65,7 @@
                 android:textColor="@android:color/white"
                 android:background="@drawable/bb"
                 android:textSize="25dp"
+
                 android:layout_weight="1"
                 android:layout_column="19" />
         </TableRow>

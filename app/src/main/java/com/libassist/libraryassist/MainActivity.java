@@ -160,9 +160,10 @@ public class MainActivity extends ActionBarActivity {
         AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
         Calendar cal= Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
-        cal.set(Calendar.HOUR_OF_DAY,9);
-        cal.set(Calendar.MINUTE,30);
-        cal.set(Calendar.AM_PM,Calendar.PM);
+        cal.set(Calendar.HOUR_OF_DAY,6);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pi);
 
         ComponentName cn= new ComponentName(this,MainActivity.class);

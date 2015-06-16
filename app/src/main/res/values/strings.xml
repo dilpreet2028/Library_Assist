@@ -9,5 +9,6 @@
     <string name="title_activity_booklist">booklist</string>
     <string name="title_activity_thisbook">thisbook</string>
     <string name="title_activity_notify">Notify</string>
+    <string name="title_activity_returnbook">Returnbook</string>
 
 </resources>

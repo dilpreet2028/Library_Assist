@@ -34,9 +34,9 @@ public class thisbook extends ActionBarActivity {
         b=getIntent().getStringExtra("book");
         di=getIntent().getStringExtra("doi");
         dr=getIntent().getStringExtra("dor");
-            book.setText(b);
-            doi.setText(di);
-            dor.setText(dr);
+            book.setText("Book Name: "+b);
+            doi.setText("Issue Date: "+di);
+            dor.setText("Return Date: "+dr);
 
 
 
@@ -44,9 +44,9 @@ public class thisbook extends ActionBarActivity {
     }
     private void check (int f){
         if(f==1)
-            bret.setVisibility(View.GONE);
-        else
-            breiss.setVisibility(View.GONE);
+            bret.setVisibility(View.INVISIBLE);
+        else if(f==2)
+            breiss.setVisibility(View.INVISIBLE);
     }
     public void reiss(View v){
 
