@@ -75,12 +75,24 @@ public class MainActivity extends ActionBarActivity {
             add.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                   String date=cd.getText().toString();
-                    int newdate=Integer.parseInt(date);
-                    if(newdate>0) {
-                        data.changert(newdate);
-                        dialog.dismiss();
+
+                    String date=cd.getText().toString();
+                    try{ cd.setText(" ");
+
+                        int newdate=Integer.parseInt(date);
+                        if(newdate>0) {
+                            data.changert(newdate);
+                            dialog.dismiss();
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this,"Please enter a valid number ",Toast.LENGTH_SHORT).show();
+                             dialog.dismiss();
+                        }
                     }
+                    catch (Exception e){
+                        Toast.makeText(MainActivity.this,"Please enter a valid number ",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
             return true;

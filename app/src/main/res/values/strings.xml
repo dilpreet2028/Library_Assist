@@ -2,7 +2,7 @@
     <string name="app_name">Library Assist</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Change Return Date</string>
+    <string name="action_settings">Change Book Issue Interval</string>
     <string name="action_about">About</string>
     <string name="title_activity_about">About</string>
 </resources>

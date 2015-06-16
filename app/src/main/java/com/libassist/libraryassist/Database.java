@@ -17,6 +17,8 @@ public class Database {
     Context con;
     String pattern="dd-MM-yyyy";
     int returndate=10;
+    String[] bookdis;
+    int index;
 
     public Database(Context context){
         dbhelp=new DatabaseHp(context);
@@ -94,7 +96,7 @@ public class Database {
         String all;
         all=ar.toString();
         Toast.makeText(con,all,Toast.LENGTH_LONG).show();
-        Toast.makeText(con,all,Toast.LENGTH_LONG).show();
+
     }
     public void diff(){
         //to be run with services
@@ -102,7 +104,9 @@ public class Database {
         String doi,dor;
         ArrayList<String> ar=new ArrayList<>();
         String name;
+
         int count=0;
+        index=0;
         SQLiteDatabase sql=dbhelp.getWritableDatabase();
         Cursor cursor= sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
         while(cursor.moveToNext()) {
@@ -110,6 +114,8 @@ public class Database {
             if (diff <= 1) {
                 count++;
                 ar.add(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
+                bookdis[index]=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
+                index++;
             }
         }
         /* if(count>0){
@@ -142,7 +148,7 @@ public class Database {
         String[] args={book};
         sqLiteDatabase.delete(dbhelp.TBNAME,dbhelp.BNAME+"=?",args);
     }
-    ////FOR DISPLAYING BOOK NAME,DOI,DOR IN THE INTENT WHICH IS USED BY THE LISTACTIVTY
+    ////FOR DISPLAYING BOOK NAME,DOI,DOR IN THE INTENT WHICH IS USED BY THE LISTACTIVTY BUtFir REISSUE AND RETURN
     Cursor senddata;
     public void cursordis(int pos){
         //linked to the listonclicklistener
@@ -150,17 +156,37 @@ public class Database {
         SQLiteDatabase sql= dbhelp.getWritableDatabase();
         senddata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
         senddata.moveToPosition(pos);
+        sendbook(senddata.getString(senddata.getColumnIndex(dbhelp.BNAME)));
+        senddor(senddata.getString(senddata.getColumnIndex(dbhelp.DOR)));
+        senddoi(senddata.getString(senddata.getColumnIndex(dbhelp.DOI)));
     }
-    //LINKED TO THE INTENT TO DISPLAY THE CLICKED ONE
-    public String sendbook(){
-        return senddata.getString(senddata.getColumnIndex(dbhelp.BNAME));
+
+    //fOR diPSLAYING LIST OF THE BOOKS TO BE RETURNED
+    String bookname;
+    public void Rcursorpos(int pos){//Gteing the position from the lst item click
+        bookname=bookdis[pos];
     }
-    public String senddoi(){
-        return senddata.getString(senddata.getColumnIndex(dbhelp.DOR));
+    Cursor checkdata;
+    public void Rcheck(){
+        String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
+        SQLiteDatabase sql= dbhelp.getWritableDatabase();
+        checkdata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
+        while(checkdata.moveToNext()){
+            if(bookname==checkdata.getString(checkdata.getColumnIndex(dbhelp.BNAME))){
+                sendbook(checkdata.getString(checkdata.getColumnIndex(dbhelp.BNAME)));
+                senddor(checkdata.getString(checkdata.getColumnIndex(dbhelp.DOR)));
+                senddoi(checkdata.getString(checkdata.getColumnIndex(dbhelp.DOI)));
+                break;
+            }
+
+        }
     }
-    public String senddor(){
-        return senddata.getString(senddata.getColumnIndex(dbhelp.DOI));
-    }
+
+    //LINKED TO THE INTENT TO DISPLAY THE CLICKED ONE BUtFir REISSUE AND RETURN ALSOOO
+    public static String sendbook(String bname){  return bname;    }
+    public static String senddoi(String doissue){   return doissue;    }
+    public static String senddor(String doreturn){   return doreturn;    }
+
 
     //RETURN DATE
     public void changert(int newdate){

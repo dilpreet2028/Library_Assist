@@ -16,6 +16,8 @@
         android:layout_height="40dp"
         android:id="@+id/cd"
         android:layout_marginTop="40dp"
+        android:inputType="number"
+        android:padding="5dp"
         android:hint="Number of days to return book"
         android:background="@android:color/white"
         android:layout_gravity="center_horizontal|top" />
