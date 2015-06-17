@@ -34,8 +34,8 @@ public class MainActivity extends ActionBarActivity {
     ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //actionBar=getActionBar();
-        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#006600")));
+       // actionBar=getActionBar();
+       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#93E9FA")));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         data= new Database(this);
@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
     }
     public void adddata(String name){
         if(name.length()>0) {
-            id = data.add(name); 
+            id = data.add(name);
             if (id == -1)
                 Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
             else
