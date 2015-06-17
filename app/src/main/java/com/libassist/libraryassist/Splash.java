@@ -11,7 +11,7 @@ import android.view.MenuItem;
 public class Splash extends ActionBarActivity {
 
     protected boolean _active = true;
-    protected int splashTime = 2000;
+    protected int splashTime = 1500;
 
 
     @Override

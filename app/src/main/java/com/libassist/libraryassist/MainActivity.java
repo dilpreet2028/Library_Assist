@@ -1,5 +1,6 @@
 package com.libassist.libraryassist;
 
+import android.animation.Animator;
 import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.Dialog;
@@ -16,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,23 +29,25 @@ import java.util.Calendar;
 public class MainActivity extends ActionBarActivity {
     Database data;
     Intent intent;
-
+    Button bi,br,bret;
     PendingIntent pi;
     long id;
     String book;
     EditText  et,cd;
-    ActionBar actionBar;
+   Animation anim1,anim2,anim3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       // actionBar=getActionBar();
-       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#93E9FA")));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         data= new Database(this);
         intent=new Intent(this,Broadcast.class);
         pi=PendingIntent.getBroadcast(this,0,intent,0);
+        bi=(Button)findViewById(R.id.issue);
+        br=(Button)findViewById(R.id.reissue);
+        bret=(Button)findViewById(R.id.ret);
         start();
-
+        startanim();
 
         // data.diff();
     }
@@ -102,6 +107,7 @@ public class MainActivity extends ActionBarActivity {
         if( id == R.id.action_about){
             Intent intent=new Intent(this,About.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.fadeout,R.anim.fadein);
             return true;
         }
 
@@ -148,12 +154,14 @@ public class MainActivity extends ActionBarActivity {
         in.putExtra("option",1);
         in.putExtra("notify",1);
         startActivity(in);
+        overridePendingTransition(R.anim.fadeout,R.anim.fadein);
     }
     public void returnbook(View v){
         Intent in=new Intent(this,booklist.class);
         in.putExtra("option",2);
         in.putExtra("notify",1);
         startActivity(in);
+        overridePendingTransition(R.anim.fadeout,R.anim.fadein);
     }
     public void start(){
 
@@ -173,4 +181,20 @@ public class MainActivity extends ActionBarActivity {
                 PackageManager.DONT_KILL_APP);
     }
 
+    public void startanim(){
+        anim1= AnimationUtils.loadAnimation(this,R.anim.animate);
+        anim1.reset();
+        anim2= AnimationUtils.loadAnimation(this,R.anim.animate2);
+        anim2.reset();
+        anim3= AnimationUtils.loadAnimation(this,R.anim.animate3);
+        anim3.reset();
+        bi.clearAnimation();
+        br.clearAnimation();
+        bret.clearAnimation();
+
+        bi.setAnimation(anim1);
+        br.setAnimation(anim2);
+        bret.setAnimation(anim3);
+
+            }
 }
