@@ -46,7 +46,7 @@
         android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="80dp"
         android:textColor="@android:color/black"
         android:id="@+id/textView6" />
 
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:text="Ashish Gulati (CSE-1)"
         android:textSize="20sp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="80dp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
         android:layout_marginTop="30dp"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:text="Rajdeep Singh (CSE-1)"
         android:textSize="20sp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="80dp"
         android:textStyle="bold"
         android:layout_marginTop="30dp"
         android:textColor="@android:color/black"
