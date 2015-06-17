@@ -26,7 +26,7 @@ NotificationManager nm;
         Intent in= new Intent(this,booklist.class);
         PendingIntent pi= PendingIntent.getActivity(this,0,in,0);
         NotificationCompat.Builder notify=new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.abc_cab_background_top_material)
+                .setSmallIcon(R.drawable.lib)
                 .setContentTitle("Hello!!")
                 .setContentInfo("You have Books to return ")
                 .setContentIntent(pi)

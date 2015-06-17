@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/lib"
         android:label="@string/app_name"
          >
         <activity
@@ -29,17 +29,17 @@
 
         <activity
             android:name=".About"
-            android:label="@string/title_activity_about"
+            android:label="About Us"
             android:theme="@style/AllCustomTheme">
         </activity>
         <activity
             android:name=".booklist"
-            android:label="@string/title_activity_booklist"
+            android:label="Books"
             android:theme="@style/AllCustomTheme">
         </activity>
         <activity
             android:name=".thisbook"
-            android:label="@string/title_activity_thisbook"
+            android:label="Book Info"
             android:theme="@style/AllCustomTheme">
         </activity>
         <activity
