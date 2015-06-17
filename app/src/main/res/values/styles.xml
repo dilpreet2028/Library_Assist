@@ -14,12 +14,9 @@
     <style name="AllMyActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/blue</item>
         <item name="background">@color/blue</item>
-        <item name="android:titleTextStyle">@style/Alltext</item>
-    </style>
-    <style name="Alltext" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@android:color/white</item>
 
     </style>
+
 
 
     <style name="CustomTheme" parent="@style/Theme.AppCompat.Light">
@@ -29,11 +26,8 @@
     <style name="MyActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/green</item>
         <item name="background">@color/green</item>
-        <item name="android:titleTextStyle">@style/text</item>
-    </style>
-    <style name="text" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@android:color/white</item>
 
     </style>
+
 </resources>
 

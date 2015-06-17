@@ -42,7 +42,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dilpreet Singh (CSE-1)"
+        android:text="Dilpreet Singh "
         android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
@@ -60,7 +60,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ashish Gulati (CSE-1)"
+        android:text="Ashish Gulati "
         android:textSize="20sp"
         android:layout_marginLeft="80dp"
         android:textStyle="bold"
@@ -71,7 +71,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rajdeep Singh (CSE-1)"
+        android:text="Rajdeep Singh "
         android:textSize="20sp"
         android:layout_marginLeft="80dp"
         android:textStyle="bold"
