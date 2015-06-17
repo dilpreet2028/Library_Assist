@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         data= new Database(this);
         intent=new Intent(this,Broadcast.class);
         pi=PendingIntent.getBroadcast(this,0,intent,0);
-
+        start();
 
 
         // data.diff();
@@ -115,6 +115,7 @@ public class MainActivity extends ActionBarActivity {
         dialog.setContentView(view);
         dialog.show();
         Button add;
+       // start();
         add=(Button)view.findViewById(R.id.add);
         et=(EditText)view.findViewById(R.id.editText);
         add.setOnClickListener(new View.OnClickListener(){
@@ -130,13 +131,13 @@ public class MainActivity extends ActionBarActivity {
     }
     public void adddata(String name){
         if(name.length()>0) {
-            id = data.add(name); //"new"  ki jagah vo / name aaega jo name of the book he....
+            id = data.add(name); 
             if (id == -1)
                 Toast.makeText(this, "Not added", Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
-            start();
-            data.display();
+
+           // data.display();
         }
         else{
             Toast.makeText(this,"Please a Book Name",Toast.LENGTH_SHORT).show();

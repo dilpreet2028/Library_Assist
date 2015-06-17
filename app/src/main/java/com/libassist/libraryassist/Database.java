@@ -24,7 +24,7 @@ public class Database {
     Context con;
     String pattern="dd-MM-yyyy";
     int returndate=10;
-    String[] bookdis;
+    //String[] bookdis;
     int index;
     NotificationManager nm;
 
@@ -100,7 +100,7 @@ public class Database {
             //doi=cursor.getString(cursor.getColumnIndex(dbhelp.DOI));
             //dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
            // Spanned text= Html.fromHtml("<strong><h1>"+name+"</h1></strong>"+"<short>Hello</short>");
-            ar.add(name+"\n_______________________________\n\t\t\t\t\t\tReturn Date:"+dor);//need to pass only the book name
+            ar.add(name+"\n\t\t\t\t\tReturn Date:"+dor);//need to pass only the book name
             //rest for displaying three function will send the book ,issue date,retrun date
         }
 
