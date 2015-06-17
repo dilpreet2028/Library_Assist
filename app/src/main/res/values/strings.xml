@@ -10,5 +10,6 @@
     <string name="title_activity_thisbook">thisbook</string>
     <string name="title_activity_notify">Notify</string>
     <string name="title_activity_returnbook">Returnbook</string>
+    <string name="title_activity_splash">Splash</string>
 
 </resources>
