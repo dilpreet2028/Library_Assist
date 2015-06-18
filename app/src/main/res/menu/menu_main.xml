@@ -6,4 +6,7 @@
 
     <item android:id="@+id/action_about" android:title="About Us"
         android:orderInCategory="2" app:showAsAction="never" />
+    <item android:id="@+id/action_all"  android:orderInCategory="3"
+        android:title="all" android:icon="@drawable/lib"
+        app:showAsAction="always"/>
 </menu>

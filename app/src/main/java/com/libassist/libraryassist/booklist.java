@@ -31,10 +31,6 @@ public class booklist extends ActionBarActivity {
 
             array = data.display();
 
-        //for displaying bookname
-
-
-           // Toast.makeText(this,"ahhhhhhhhhhh",Toast.LENGTH_SHORT).show();
 
         counter=getIntent().getIntExtra("option",0);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.singlerow,R.id.textView,array);

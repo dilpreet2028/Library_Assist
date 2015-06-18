@@ -89,6 +89,7 @@ public class MainActivity extends ActionBarActivity {
                         if(newdate>0) {
                             data.putreturn(newdate);
                             dialog.dismiss();
+                            Toast.makeText(MainActivity.this,"Date Updated",Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Toast.makeText(MainActivity.this,"Please enter a valid number ",Toast.LENGTH_SHORT).show();
@@ -108,6 +109,12 @@ public class MainActivity extends ActionBarActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.fadeout,R.anim.fadein);
             return true;
+        }
+        if(id==R.id.action_all){
+            Intent in= new Intent(this,booklist.class);
+            in.putExtra("option",0);
+            startActivity(in);
+            overridePendingTransition(R.anim.fadeout,R.anim.fadein);
         }
 
         return super.onOptionsItemSelected(item);
@@ -151,14 +158,12 @@ public class MainActivity extends ActionBarActivity {
     public void reissue(View v){
         Intent in= new Intent(this,booklist.class);
         in.putExtra("option",1);
-        in.putExtra("notify",1);
         startActivity(in);
         overridePendingTransition(R.anim.fadeout,R.anim.fadein);
     }
     public void returnbook(View v){
         Intent in=new Intent(this,booklist.class);
         in.putExtra("option",2);
-        in.putExtra("notify",1);
         startActivity(in);
         overridePendingTransition(R.anim.fadeout,R.anim.fadein);
     }
