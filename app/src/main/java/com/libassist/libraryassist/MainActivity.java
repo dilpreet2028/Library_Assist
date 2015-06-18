@@ -1,7 +1,5 @@
 package com.libassist.libraryassist;
 
-import android.animation.Animator;
-import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -9,8 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 
 
@@ -46,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
         bi=(Button)findViewById(R.id.issue);
         br=(Button)findViewById(R.id.reissue);
         bret=(Button)findViewById(R.id.ret);
-        start();
+        startService();
         startanim();
 
         // data.diff();
@@ -88,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
 
                         int newdate=Integer.parseInt(date);
                         if(newdate>0) {
-                            data.changert(newdate);
+                            data.putreturn(newdate);
                             dialog.dismiss();
                         }
                         else{
@@ -163,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
         startActivity(in);
         overridePendingTransition(R.anim.fadeout,R.anim.fadein);
     }
-    public void start(){
+    public void startService(){
 
 
         AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
@@ -197,4 +196,6 @@ public class MainActivity extends ActionBarActivity {
         bret.setAnimation(anim3);
 
             }
+
+
 }
