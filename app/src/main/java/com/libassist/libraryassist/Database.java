@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.text.Spanned;
@@ -111,9 +112,9 @@ public class Database {
     public void diff(){
         //to be run with services
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
-        String doi,dor;
+
         ArrayList<String> ar=new ArrayList<>();
-        String name;
+
 
         int count=0;
         index=0;
@@ -129,8 +130,9 @@ public class Database {
                // index++;
             }
         }
+
         if(count>0){
-                  start(ar);
+                  start();
                   //  getfromdiff(ar);
                /*  1.notiifcation support
                 2.send all the books which are in the array list to the list view
@@ -139,44 +141,23 @@ public class Database {
                     books to be returned )*/
                 }
 
-        String st=ar.toString();
-        Toast.makeText(con,st+" "+count,Toast.LENGTH_SHORT).show();
-        /*if(count==0)
-                return null;
-             else
-                return ar;*/
+
 
     }
-    public void start(ArrayList<String> arr){
+    public void start(){
         nm=(NotificationManager)con.getSystemService(con.NOTIFICATION_SERVICE);
         Intent in= new Intent(con,booklist.class);
 
         PendingIntent pi= PendingIntent.getActivity(con,0,in,0);
         NotificationCompat.Builder notify=new NotificationCompat.Builder(con)
-                .setSmallIcon(R.drawable.abc_cab_background_top_material)
+                .setSmallIcon(R.drawable.lib)
                 .setContentTitle("Hello!!")
                 .setContentInfo("You have Books to return ")
                 .setContentIntent(pi)
                 .setDefaults(Notification.DEFAULT_ALL);
         nm.notify(111,notify.build());
     }
-     /*ArrayList<String> diffar;
-    public void getfromdiff(ArrayList<String> arrayList){
-            diffar=new ArrayList<>();
-            diffar=arrayList;
-    }
-    public ArrayList<String> givetolist(){
-        return diffar;
-    }*/
-    //for deleting
-  /*  public void posdel(int pos)//need the pos from the listview...
-    {
-        String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
-        SQLiteDatabase sql= dbhelp.getWritableDatabase();
-        Cursor cursor=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
-        cursor.moveToPosition(pos);
-        deletebook(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
-    }*/
+
 
     public void deletebook(String book){
         SQLiteDatabase sqLiteDatabase=dbhelp.getWritableDatabase();
@@ -270,7 +251,7 @@ public class Database {
         public void onCreate(SQLiteDatabase db) {
             try{
                 db.execSQL(CREATE_TB);
-                Toast.makeText(con,"Created",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(con,"Created",Toast.LENGTH_SHORT).show();
             }
             catch(Exception e){
                 Toast.makeText(con,"Failed",Toast.LENGTH_SHORT).show();
@@ -282,7 +263,7 @@ public class Database {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try{
                 db.execSQL(DROP_TB);
-                Toast.makeText(con,"Updated",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(con,"Updated",Toast.LENGTH_SHORT).show();
             }
             catch(Exception e){
                 Toast.makeText(con,"Failed Update",Toast.LENGTH_SHORT).show();

@@ -19,18 +19,21 @@ public class booklist extends ActionBarActivity {
     ListView list;
     ArrayList<String> array;
     Database data;
-    int counter;
+    int counter,check;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        check=10;
         setContentView(R.layout.activity_booklist);
+        list=(ListView)findViewById(R.id.listView);
         data=new Database(this);
         array=new ArrayList<>();
-        list=(ListView)findViewById(R.id.listView);
+
+            array = data.display();
 
         //for displaying bookname
 
-            array = data.display();
+
            // Toast.makeText(this,"ahhhhhhhhhhh",Toast.LENGTH_SHORT).show();
 
         counter=getIntent().getIntExtra("option",0);
