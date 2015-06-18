@@ -43,10 +43,6 @@
             android:theme="@style/AllCustomTheme">
         </activity>
         <activity
-            android:name=".Notify"
-            android:label="@string/title_activity_notify" >
-        </activity>
-        <activity
             android:name=".Splash"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

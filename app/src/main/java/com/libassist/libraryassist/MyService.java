@@ -14,7 +14,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         database=new Database(this);
-        Toast.makeText(this,"Service Started",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this,"Service Started",Toast.LENGTH_SHORT).show();
         database.diff();
         stopSelf();
         return START_STICKY;
@@ -23,7 +23,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this,"Service Stopped",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"Service Stopped",Toast.LENGTH_LONG).show();
     }
 
     @Override
