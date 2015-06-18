@@ -9,12 +9,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.text.Html;
-import android.text.Spanned;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,8 +25,8 @@ public class Database {
     DatabaseHp dbhelp;
     Context con;
     String pattern="dd-MM-yyyy";
-    int returndate=10;
-    //String[] bookdis;
+
+
     int index;
     NotificationManager nm;
 
@@ -40,7 +41,7 @@ public class Database {
     }
     public String after(String now){
         SimpleDateFormat sdf=new SimpleDateFormat(pattern);
-
+        int returndate=getreturn();
         Calendar c=Calendar.getInstance();
         try {
             c.setTime(sdf.parse(now));
@@ -91,19 +92,15 @@ public class Database {
     public ArrayList<String> display(){
         String[] colname={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
         ArrayList<String> ar=new ArrayList<>();
-        String name,dor,doi;
+        String name,dor;
         SQLiteDatabase sqLiteDatabase=dbhelp.getWritableDatabase();
 
         Cursor cursor=sqLiteDatabase.query(dbhelp.TBNAME,colname,null,null,null,null,null);
         while(cursor.moveToNext()){
             name=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
             dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
-            //doi=cursor.getString(cursor.getColumnIndex(dbhelp.DOI));
-            //dor=cursor.getString(cursor.getColumnIndex(dbhelp.DOR));
-           // Spanned text= Html.fromHtml("<strong><h1>"+name+"</h1></strong>"+"<short>Hello</short>");
             ar.add(name+"\n____________\nReturn Date:"+dor);//need to pass only the book name
-            //rest for displaying three function will send the book ,issue date,retrun date
-        }
+             }
 
         return ar;
 
@@ -112,39 +109,28 @@ public class Database {
     public void diff(){
         //to be run with services
         String[] col={dbhelp.BNAME,dbhelp.DOI,dbhelp.DOR};
-
         ArrayList<String> ar=new ArrayList<>();
-
-
         int count=0;
         index=0;
         SQLiteDatabase sql=dbhelp.getWritableDatabase();
         Cursor cursor= sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
-        while(cursor.moveToNext()) {
+
+        while(cursor.moveToNext())
+        {
             long diff = check(cursor.getString(cursor.getColumnIndex(dbhelp.DOR)));
             if (diff <= 1)
             {
                 count++;
                 ar.add(cursor.getString(cursor.getColumnIndex(dbhelp.BNAME)));
-               // bookdis[index]=cursor.getString(cursor.getColumnIndex(dbhelp.BNAME));
-               // index++;
             }
         }
 
-        if(count>0){
-                  start();
-                  //  getfromdiff(ar);
-               /*  1.notiifcation support
-                2.send all the books which are in the array list to the list view
-                    so that it can display the list
-                    (notification will have the pending intent for the list view for the
-                    books to be returned )*/
-                }
-
-
+        if(count>0)
+                  notification();
 
     }
-    public void start(){
+
+    public void notification(){
         nm=(NotificationManager)con.getSystemService(con.NOTIFICATION_SERVICE);
         Intent in= new Intent(con,booklist.class);
 
@@ -180,11 +166,6 @@ public class Database {
         dr=senddata.getString(senddata.getColumnIndex(dbhelp.DOR));
     }
 
-    //fOR diPSLAYING LIST OF THE BOOKS TO BE RETURNED
-    //String bookname;
-    //public void Rcursorpos(int pos){//Gteing the position from the lst item click
-    //    bookname=bookdis[pos];
-    //}
 
     public void Rcheck(String buk){
 
@@ -202,24 +183,6 @@ public class Database {
              }
         }
 
-
-
-
-
-       /* Cursor checkdata;
-        SQLiteDatabase sql= dbhelp.getWritableDatabase();
-        checkdata=sql.query(dbhelp.TBNAME,col,null,null,null,null,null);
-
-        while(checkdata.moveToNext()){
-            Toast.makeText(con,dbhelp.BNAME,Toast.LENGTH_SHORT).show();
-            if(bk==checkdata.getString(checkdata.getColumnIndex(dbhelp.BNAME))){
-
-                Toast.makeText(con,"Rcheck in loop",Toast.LENGTH_SHORT).show();
-                deletebook(bk);
-                break;
-            }
-
-        }*/
     }
 
     //LINKED TO THE INTENT TO DISPLAY THE CLICKED ONE BUtFir REISSUE AND RETURN ALSOOO
@@ -229,10 +192,56 @@ public class Database {
 
 
     //RETURN DATE
-    public void changert(int newdate){
+  /*  public void changert(int newdate){
         returndate=newdate;
         Toast.makeText(con,"Date Changed",Toast.LENGTH_SHORT).show();
+    }*/
+    public void putreturn(int date){
+        String strdate=date+"";
+        try{
+            FileOutputStream fileout=con.openFileOutput("date.txt", Context.MODE_PRIVATE);
+            fileout.write(strdate.getBytes());
+            fileout.close();
+        }
+        catch(FileNotFoundException f){
+            Toast.makeText(con,"Please try again",Toast.LENGTH_SHORT).show();
+        }
+        catch(IOException e){
+            Toast.makeText(con,"Please try again",Toast.LENGTH_SHORT).show();
+        }
     }
+    public int getreturn(){
+        int date=10;
+        try{
+            FileInputStream filein=con.openFileInput("date.txt");
+            StringBuffer buffer=new StringBuffer();
+            int read=-1;
+            while((read=filein.read())!=-1){
+                buffer.append((char)read);
+            }
+            date=Integer.parseInt(buffer.toString());
+            filein.close();
+        }
+        catch(FileNotFoundException f){
+            try{
+                String newdate=10+"";
+                FileOutputStream fileout=con.openFileOutput("date.txt", Context.MODE_PRIVATE);
+                fileout.write(newdate.getBytes());
+                fileout.close();
+            }
+            catch(FileNotFoundException filenot){
+                Toast.makeText(con,"Please try again",Toast.LENGTH_SHORT).show();
+            }
+            catch(IOException writtennot){
+                Toast.makeText(con,"Please try again",Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch(IOException e){
+            Toast.makeText(con,"Please try again",Toast.LENGTH_SHORT).show();
+        }
+        return date;
+    }
+
     static public class DatabaseHp extends SQLiteOpenHelper {
         private static final String TBNAME="BOOKS";
         private static final String BNAME="bname";
