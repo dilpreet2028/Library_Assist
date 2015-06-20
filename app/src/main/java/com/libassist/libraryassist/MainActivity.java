@@ -98,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                     catch (Exception e){
                         Toast.makeText(MainActivity.this,"Please enter a valid number ",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
 
                 }
